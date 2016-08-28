@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 
+    	在Spring中当我们需要使用@Resource、@PostConstruct、@PreDestroy等注解就必须声明 CommonAnnotationBeanPostProcessor；
+    	使用@PersistenceContext注解，就必须声明 PersistenceAnnotationBeanPostProcessor的Bean
+    	这样做特别的不方便,所以可以使用`<context:annotation-config />`来隐式地向 Spring容器注册
+    	当然如果使用了：例如 <context:component-scan base-package="com.doctor.dao" />
+    	里面已包含了此功能,故这里不需要使用
+     -->
+    <!-- <context:annotation-config /> -->
+    
+    <!-- 
+   	    <context:component-scan base-package="com.doctor.dao" />作用：
+        spring可以自动去扫描base-pack下面或者子包下面的java文件，如果扫描到有@Component @Controller@Service等这些注解的类，则把这些类注册为bean
+    	@Component是所有受Spring管理组件的通用形式；
+    	而@Repository、@Service和 @Controller则是@Component的细化，
+    	用来表示更具体的用例(例如，分别对应了持久化层、服务层和表现层)。
+    	也就是说，你能用@Component来注解你的组件类，但如果用@Repository、@Service 或@Controller来注解它们，
+    	你的类也许能更好地被工具处理，或与切面进行关联。例如，这些典型化注解可以成为理想的切入点目标。
+    	当然，在Spring Framework以后的版本中， @Repository、@Service和 @Controller也许还能携带更多语义。
+    	如此一来，如果你正在考虑服务层中是该用@Component还是@Service，那@Service显然是更好的选择。
+    	同样的，就像前面说的那样， @Repository已经能在持久化层中进行异常转换时被作为标记使用了。”
+     -->
+    <context:component-scan base-package="com.doctor.nyqx.dao"></context:component-scan>
+    <context:component-scan base-package="com.doctor.service"></context:component-scan>
+    
+    <!-- 加载jdbc属性文件到上下文 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+	<!-- 使用了dbcp数据源，从context中读取了jdbc属性文件中设定的值 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+   		<property name="dataSource" ref="dataSource" />
+   		<property name="mapperLocations" value="classpath:com/doctor/mappers/*.xml" />
+   		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+   </bean>
+   <!-- 采用自动扫描方式创建mapper bean(单个更新模式) -->  
+   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+   		<property name="basePackage" value="com.doctor.nyqx.dao" />
+   		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+   </bean>
+    
+     <!-- 添加事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 配置事物通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    	<tx:attributes>
+    		<tx:method name="insert*" propagation="REQUIRED"/>
+    		<tx:method name="update*" propagation="REQUIRED"/>
+    		<tx:method name="edit*" propagation="REQUIRED"/>
+    		<tx:method name="save*" propagation="REQUIRED"/>
+    		<tx:method name="add*" propagation="REQUIRED"/>
+    		<tx:method name="new*" propagation="REQUIRED"/>
+    		<tx:method name="set*" propagation="REQUIRED"/>
+    		<tx:method name="remove*" propagation="REQUIRED"/>
+    		<tx:method name="delete*" propagation="REQUIRED"/>
+    		<tx:method name="change*" propagation="REQUIRED"/>
+    		<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+    		<tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+    		<tx:method name="load*" propagation="REQUIRED" read-only="true"/>
+    		<tx:method name="*" propagation="REQUIRED" read-only="true"/>
+    	</tx:attributes>
+    </tx:advice>
+    <!-- 配置事物切面 -->
+    <aop:config>
+    	<aop:pointcut id="serviceOperation" expression="execution(* com.doctor.nyqx.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
+    </aop:config>
+</beans>
