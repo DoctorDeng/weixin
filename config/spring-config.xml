@@ -21,7 +21,7 @@
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     
      <!-- 上下文内容扫描(controller) 扫描基础包及其子包 -->
-    <context:component-scan base-package="com.doctor.controller"></context:component-scan>
+    <context:component-scan base-package="com.doctor.nyqx.controller"></context:component-scan>
     <!-- 注解驱动,会自动注册几个bean,其中一个功能：把对象和json进行转化 -->
     <mvc:annotation-driven />
     

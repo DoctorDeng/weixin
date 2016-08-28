@@ -89,6 +89,6 @@
 		<servlet-name>dispatcher</servlet-name>
 		<!-- 这里可以为Servlet加上.do后缀 -->
 		<!-- 注意这里不能加上/ 例如：/*.do -->
-		<url-pattern>*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 </web-app>

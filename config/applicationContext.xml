@@ -38,7 +38,7 @@
     	同样的，就像前面说的那样， @Repository已经能在持久化层中进行异常转换时被作为标记使用了。”
      -->
     <context:component-scan base-package="com.doctor.nyqx.dao"></context:component-scan>
-    <context:component-scan base-package="com.doctor.service"></context:component-scan>
+    <context:component-scan base-package="com.doctor.nyqx.service"></context:component-scan>
     
     <!-- 加载jdbc属性文件到上下文 -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
@@ -53,7 +53,7 @@
     
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
    		<property name="dataSource" ref="dataSource" />
-   		<property name="mapperLocations" value="classpath:com/doctor/mappers/*.xml" />
+   		<property name="mapperLocations" value="classpath:com/doctor/nyqx/mapping/*.xml" />
    		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
    </bean>
    <!-- 采用自动扫描方式创建mapper bean(单个更新模式) -->  
