@@ -26,7 +26,7 @@
     <mvc:annotation-driven />
     
     <!-- spring静态资源配置 -->
-	<mvc:resources mapping="/resources/**" location="/resources"></mvc:resources>
+	<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 	
     <!-- 视图转换器 -->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
