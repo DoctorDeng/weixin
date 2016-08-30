@@ -24,11 +24,6 @@ public class TimingSendMailController {
 	private ScheduledExecutorService service;
 	private EmailService emailService = new EmailServiceImpl();
 	public void init() {
-		Runnable runnable = new Runnable() {
-			public void run() {
-				System.out.println("Hello !!");
-			}
-		};
 		Runnable ru = () -> {
 			System.out.println("哈哈哈!");
 		};
