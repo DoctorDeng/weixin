@@ -20,6 +20,7 @@ import com.doctor.nyqx.service.impl.EmailServiceImpl;
  * @author Doctor
  *
  */
+
 public class TimingSendMailController {
 	private ScheduledExecutorService service;
 	private EmailService emailService = new EmailServiceImpl();
