@@ -41,7 +41,7 @@
     <context:component-scan base-package="com.doctor.nyqx.service"></context:component-scan>
     
     <!-- 加载jdbc属性文件到上下文 -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:oraclejdbc.properties"/>
 
 	<!-- 使用了dbcp数据源，从context中读取了jdbc属性文件中设定的值 -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
@@ -61,33 +61,4 @@
    		<property name="basePackage" value="com.doctor.nyqx.dao" />
    		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
    </bean>
-    
-     <!-- 添加事务管理器 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-    <!-- 配置事物通知 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-    	<tx:attributes>
-    		<tx:method name="insert*" propagation="REQUIRED"/>
-    		<tx:method name="update*" propagation="REQUIRED"/>
-    		<tx:method name="edit*" propagation="REQUIRED"/>
-    		<tx:method name="save*" propagation="REQUIRED"/>
-    		<tx:method name="add*" propagation="REQUIRED"/>
-    		<tx:method name="new*" propagation="REQUIRED"/>
-    		<tx:method name="set*" propagation="REQUIRED"/>
-    		<tx:method name="remove*" propagation="REQUIRED"/>
-    		<tx:method name="delete*" propagation="REQUIRED"/>
-    		<tx:method name="change*" propagation="REQUIRED"/>
-    		<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
-    		<tx:method name="find*" propagation="REQUIRED" read-only="true"/>
-    		<tx:method name="load*" propagation="REQUIRED" read-only="true"/>
-    		<tx:method name="*" propagation="REQUIRED" read-only="true"/>
-    	</tx:attributes>
-    </tx:advice>
-    <!-- 配置事物切面 -->
-    <aop:config>
-    	<aop:pointcut id="serviceOperation" expression="execution(* com.doctor.nyqx.service.*.*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
-    </aop:config>
 </beans>

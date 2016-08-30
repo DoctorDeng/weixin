@@ -1,4 +1,5 @@
 package com.doctor.nyqx.dao;
 
-public interface UserDao {
+public interface Test {
+
 }
