@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="jquery-1.11.3.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<style type="text/css">
+.vertical-center {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -25%);
+}
+
+#menuDiv {
+	width: 360px;
+	height: 1100px;
+	/* background-color: black; */
+}
+
+#inforDiv {
+	float: left;
+	width: 600px;
+	height: 1100px;
+	/*  background-color: red; */
+}
+
+#search {
+	/*  background-color: orange; */
+	padding-top: 20px;
+}
+
+img {
+	width: 180px;
+	height: 130px;
+}
+
+.inforText {
+	/* float:left; */
+	display: inline;
+}
+
+.inforImg {
+	/*  float:left; */
+	margin-right: 25px;
+	display: inline;
+	float: left;
+}
+
+.infor {
+	margin-top: 10px;
+	height: 140px;
+}
+</style>
+</head>
+<body>
+	<div class="vertical-center" style="width: 960px; height: 1100px">
+		<div id="search">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								类型<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">农事建议</a></li>
+								<li><a href="#">措施</a></li>
+								<li><a href="#">指标</a></li>
+							</ul>
+						</div>
+						<!-- /btn-group -->
+						<input type="text" class="form-control">
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+				<div class="col-lg-6">
+					<div class="input-group">
+						<input type="text" class="form-control">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								生育期<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">播种</a></li>
+								<li><a href="#">育苗</a></li>
+								<li><a href="#">开花</a></li>
+								<li><a href="#">结果</a></li>
+								<li><a href="#">死亡</a></li>
+							</ul>
+						</div>
+						<!-- /btn-group -->
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<div id="infor">
+			<div class="page-header infor">
+				<div class="inforImg">
+					<img src="1.jpg"/ >
+				</div>
+				<div class="inforText">
+					<h2>Example page header</h2>
+					<p>收到甲方都是理科昆仑山搭街坊了</p>
+				</div>
+			</div>
+			<div class="page-header infor">
+				<div class="inforImg">
+					<img src="1.jpg"/ >
+				</div>
+				<div class="inforText">
+					<h2>Example page header</h2>
+					<p>收到甲方都是理科昆仑山搭街坊了</p>
+				</div>
+			</div>
+			<div class="page-header infor">
+				<div class="inforImg">
+					<img src="1.jpg"/ >
+				</div>
+				<div class="inforText">
+					<h2>Example page header</h2>
+					<p>收到甲方都是理科昆仑山搭街坊了</p>
+				</div>
+			</div>
+		</div>
+		<div id="menuDiv">
+			<!-- 专家知识库菜单-->
+			<ul id="expertKnowledge">
+				<li>农事建议</li>
+				<li>措施</li>
+				<li>指标</li>
+			</ul>
+			<!-- 生育期灾害菜单-->
+			<ul id="disaster">
+				<li>小波</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
